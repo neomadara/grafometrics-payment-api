@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Ruta de ejemplo
 app.get('/', (req: Request, res: Response) => {
-  res.send('¡Hola, Grafometrics!');
+  res.send('¡Hola, soy la pasarela de pagos de Grafometrics!');
 });
 
 // Ruta para obtener pagos
