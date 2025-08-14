@@ -2,7 +2,7 @@
   "name": "grafometrics-payment-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.js",
   "scripts": {
     "start": "node index-local.js",
     "start:ts": "ts-node index.ts",
