@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Ruta de ejemplo
 app.get('/', (req: Request, res: Response) => {
-  res.send('¡Hola, mundo!');
+  res.send('¡Hola, Grafometrics!');
 });
 
 // Ruta para obtener pagos
