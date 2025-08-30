@@ -1,29 +1,26 @@
-import express, { Request, Response } from 'express';
+import 'dotenv/config';
+import createApp from './app';
+import { connect as connectMongo } from './infra/mongodb';
 
-const app = express();
-const port = 3000;
+const app = createApp();
 
-// Middleware para parsear JSON
-app.use(express.json());
+const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-// Ruta de ejemplo
-app.get('/', (req: Request, res: Response) => {
-  res.send('¡Hola, soy la pasarela de pagos de Grafometrics!');
-});
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const MONGODB_DB = process.env.MONGODB_DB || 'grafometrics';
 
-// Ruta para obtener pagos
-app.get('/pagos', (req: Request, res: Response) => {
-  res.json([{ id: 1, monto: 100 }, { id: 2, monto: 200 }]);
-});
+connectMongo(MONGODB_URI, MONGODB_DB)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error', err));
 
-// Ruta para crear un pago
-app.post('/pagos', (req: Request, res: Response) => {
-  const nuevoPago = req.body;
-  // Aquí normalmente guardarías el pago en la base de datos
-  res.status(201).json({ mensaje: 'Pago creado', pago: nuevoPago });
-});
+export default app;
+export const handler = (req: any, res: any) => app(req, res);
 
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`API escuchando en http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log('Variables de entorno cargadas:');
+    console.log('- MERCADOPAGO_ACCESS_TOKEN:', process.env.MERCADOPAGO_ACCESS_TOKEN ? 'Configurado' : 'No configurado');
+    console.log('- MONGODB_URI:', process.env.MONGODB_URI ? 'Configurado' : 'No configurado');
+    console.log(`API escuchando en http://localhost:${port}`);
+  });
+}

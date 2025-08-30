@@ -1,24 +1,37 @@
 {
   "name": "grafometrics-payment-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
+  "description": "API de pagos para Grafometrics usando MercadoPago",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node index-local.js",
-    "start:ts": "ts-node index.ts",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "payment",
+    "mercadopago",
+    "api",
+    "grafometrics"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "mercadopago": "^2.4.0",
+    "mongodb": "^5.7.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node": "^10.0.0",
+    "@types/express": "^4.17.0",
     "@types/node": "^20.0.0",
-    "@types/express": "^4.17.0"
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
   }
 }
